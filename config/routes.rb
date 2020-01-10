@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  resources :group_ins
   resources :friendships
   resources :expenses
   resources :groups
