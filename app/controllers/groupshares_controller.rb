@@ -1,0 +1,2 @@
+class GroupsharesController < ApplicationController
+end
