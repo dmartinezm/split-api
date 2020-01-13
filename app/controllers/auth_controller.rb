@@ -1,35 +1,35 @@
 class AuthController < ApplicationController
+    skip_before_action :authenticate_request
+
+    def create
+        # user = User.find_by("lower(email) = ?", params[:email].downcase)
+        # if user && user.authenticate(params[:password])
+        #     #this is what will be passed in the token payload
+        #   render json: { token: create_token(user.id), user_id: user.id }
+        #   # render json: {ok: true}
     
-    
-    def login
-        
-        user = User.find_by(email: login_params[:email])
-        if user && user.authenticate(login_params[:password])
-            payload = {
-                user_id: user.id
-            }
+        # else 
+        #   render json: { errors: [ "That didn't match any users WE know about 💁" ] }, status: :unprocessable_entity
+        # end 
+        authenticate
 
-            token = JWT.encode(payload, secret, 'HS256')
-            render json: {user: user.id, token: token}
-        else
-            render json: {errors: user.errors.full_messages}
-        end
-
-    end
-
-    def persist
-        if request.headers['Authorization']
-            encoded_token = request.headers['Authorization'].split(' ')[1]
-            token = JWT.decode(encoded_token, secret, true, {algorithm: 'HS256'})
-            user_id = token[0]['user_id']
-            user = User.find(user_id)
-            render json: user
-        end
     end
 
     private
 
-    def login_params
-        params.permit(:email, :password)
+    def authenticate
+      
+      command = AuthenticateUser.call(params[:email], params[:password])
+      user = User.find_by("lower(email) = ?", params[:email].downcase)
+
+      if command.success?
+        render json:{
+          token: command.result,
+          user_id: user.id,
+          message: 'Login Successful'
+        }
+      else 
+        render json: { errors: command.errors }, status: :unauthorized
+      end 
     end
 end
