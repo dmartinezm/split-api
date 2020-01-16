@@ -17,6 +17,7 @@ ActiveRecord::Schema.define(version: 2020_01_10_170751) do
 
   create_table "expenses", force: :cascade do |t|
     t.string "name"
+    t.bigint "user_id"
     t.string "description"
     t.decimal "amount", precision: 12, scale: 2
     t.bigint "group_id", null: false
@@ -54,6 +55,7 @@ ActiveRecord::Schema.define(version: 2020_01_10_170751) do
     t.string "email"
     t.string "password_digest"
     t.string "role", default: "user"
+    t.string "img_url"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

@@ -21,11 +21,12 @@ diego.groupshares.create(group:cc)
 muna.groupshares.create(group:bootcamp)
 ashley.groupshares.create(group: apartment)
 
+diego.friends.push(ashley)
+diego.friends.push(muna)
 
-Expense.create(name:"Electric", description:"ConEd", amount:"65.55", group: apartment)
-Expense.create(name:"Cable", description:"Spectrum", amount:"100.22", group: apartment)
-Expense.create(name:"iPhone", description:"Got new phone", amount:"900.33", group: cc)
-Expense.create(name:"iPhone", description:"Got new phone", amount:"800.93", group: bootcamp)
+Expense.create(user_id: diego.id, name:"Electric", description:"ConEd", amount:"65.55", group: apartment)
+Expense.create(user_id: diego.id, name:"Cable", description:"Spectrum", amount:"100.22", group: apartment)
+Expense.create(user_id: muna.id, name:"iPhone", description:"Got new phone", amount:"900.33", group: cc)
+Expense.create(user_id: ashley.id, name:"iPhone", description:"Got new phone", amount:"800.93", group: bootcamp)
 
 
-diego.friends
