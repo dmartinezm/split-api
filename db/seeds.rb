@@ -28,3 +28,4 @@ Expense.create(name:"iPhone", description:"Got new phone", amount:"900.33", grou
 Expense.create(name:"iPhone", description:"Got new phone", amount:"800.93", group: bootcamp)
 
 
+diego.friends

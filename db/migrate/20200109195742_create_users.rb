@@ -6,7 +6,7 @@ class CreateUsers < ActiveRecord::Migration[6.0]
       t.string :email
       t.string :password_digest
       t.string :role, default: 'user'
-
+      t.string :img_url
       t.timestamps
     end
   end
