@@ -11,7 +11,7 @@ class UsersController < ApplicationController
             payload = {
                 user_id: user.id
             }
-            token = JWT.encode(payload, secret, 'HS256')
+            token = JWT.encode(payload, HMAC_SECRET, 'HS256')
             render json: {user: user, token: token}
         else
             render json: {errors: user.errors.full_messages}
@@ -29,9 +29,19 @@ class UsersController < ApplicationController
         user.destroy
     end
 
+    def addGroup
+        user = User.find(group_params[:user_id])
+        user.groups.create(name: group_params[:name])
+        render json: user
+    end
+
     private
 
     def user_params
         params.permit(:first_name, :last_name, :email, :password)
+    end
+
+    def group_params
+        params.permit(:user_id,:name)
     end
 end

@@ -1,35 +1,25 @@
 class AuthController < ApplicationController
-    skip_before_action :authenticate_request
 
-    def create
-        # user = User.find_by("lower(email) = ?", params[:email].downcase)
-        # if user && user.authenticate(params[:password])
-        #     #this is what will be passed in the token payload
-        #   render json: { token: create_token(user.id), user_id: user.id }
-        #   # render json: {ok: true}
-    
-        # else 
-        #   render json: { errors: [ "That didn't match any users WE know about 💁" ] }, status: :unprocessable_entity
-        # end 
-        authenticate
+    def login
+        user = User.find_by("lower(email) = ?", login_params[:email].downcase)
+        if user && user.authenticate(login_params[:password])
+            render json: {user: user, token: encode_token(user)}
+        else
+            render json: {errors: user.errors.full_messages}
+        end
+    end
 
+    def persist
+
+        if token
+            render json: logged_in_user
+        end
     end
 
     private
 
-    def authenticate
-      
-      command = AuthenticateUser.call(params[:email], params[:password])
-      user = User.find_by("lower(email) = ?", params[:email].downcase)
-
-      if command.success?
-        render json:{
-          token: command.result,
-          user_id: user.id,
-          message: 'Login Successful'
-        }
-      else 
-        render json: { errors: command.errors }, status: :unauthorized
-      end 
+    def login_params
+        params.require(:auth).permit(:email, :password)
     end
+
 end
