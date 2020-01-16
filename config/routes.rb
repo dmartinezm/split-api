@@ -12,5 +12,6 @@ Rails.application.routes.draw do
   get '/persist', to: 'auth#persist'
 
   post '/newgroup', to: 'users#addGroup'
+  post '/newfriend', to: 'users#addFriend'
 
 end

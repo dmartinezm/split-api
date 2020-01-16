@@ -35,6 +35,8 @@ class UsersController < ApplicationController
         render json: user
     end
 
+    
+
     private
 
     def user_params
@@ -44,4 +46,5 @@ class UsersController < ApplicationController
     def group_params
         params.permit(:user_id,:name)
     end
+
 end

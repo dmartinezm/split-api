@@ -26,3 +26,5 @@ Expense.create(name:"Electric", description:"ConEd", amount:"65.55", group: apar
 Expense.create(name:"Cable", description:"Spectrum", amount:"100.22", group: apartment)
 Expense.create(name:"iPhone", description:"Got new phone", amount:"900.33", group: cc)
 Expense.create(name:"iPhone", description:"Got new phone", amount:"800.93", group: bootcamp)
+
+
