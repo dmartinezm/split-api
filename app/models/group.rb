@@ -5,4 +5,6 @@ class Group < ApplicationRecord
     self.expenses.sum(:amount)
   end
 
+  
+
 end
