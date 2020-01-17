@@ -23,7 +23,10 @@ class User < ApplicationRecord
             p = ActiveRecord::Base.connection.execute("select * from groups inner join groupshares on groupshares.group_id=groups.id")
             h = {}
             p.map{|v| v}
-            
-      
+    end
+
+    def group_with
+        p = ActiveRecord::Base.connection.execute("select * from groupwith_vw")
+        p.map{|v| v}
     end
 end

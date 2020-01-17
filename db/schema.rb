@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_16_235751) do
+ActiveRecord::Schema.define(version: 2020_01_17_161214) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,6 +24,15 @@ ActiveRecord::Schema.define(version: 2020_01_16_235751) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["group_id"], name: "index_expenses_on_group_id"
+  end
+
+  create_table "friend_group_shares", force: :cascade do |t|
+    t.bigint "friendship_id", null: false
+    t.bigint "groupshare_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["friendship_id"], name: "index_friend_group_shares_on_friendship_id"
+    t.index ["groupshare_id"], name: "index_friend_group_shares_on_groupshare_id"
   end
 
   create_table "friendships", force: :cascade do |t|
@@ -66,6 +75,8 @@ ActiveRecord::Schema.define(version: 2020_01_16_235751) do
   end
 
   add_foreign_key "expenses", "groups"
+  add_foreign_key "friend_group_shares", "friendships"
+  add_foreign_key "friend_group_shares", "groupshares"
   add_foreign_key "friendships", "users"
   add_foreign_key "groupshares", "groups"
   add_foreign_key "groupshares", "users"
