@@ -30,7 +30,7 @@ class ApplicationController < ActionController::API
 
     def logged_in_user
         if decode_token
-            User.find(decode_token)
+            user = User.find(decode_token)
         end
     end
 
