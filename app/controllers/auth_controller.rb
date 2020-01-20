@@ -4,7 +4,8 @@ class AuthController < ApplicationController
         user = User.find_by("lower(email) = ?", login_params[:email].downcase)
         
         if user && user.authenticate(login_params[:password])
-            render json: {user: user.as_json(include: [:groups,:friends]), token: encode_token(user)}
+            # render json: {user: user.as_json(include: [:groups,:friends]), token: encode_token(user)}
+            render json: {user: UserSerializer.new(user) , token: encode_token(user)}
         else
             render json: {errors: user.errors.full_messages}
         end
@@ -16,7 +17,7 @@ class AuthController < ApplicationController
             decode_token = JWT.decode(ecoded_token,HMAC_SECRET, true, {algorithm: 'HS256'})
             user_id = decode_token[0]['user_id']
             user = User.find(user_id)
-            render json: user, include: [:groups,:friends]
+            render json: {user: UserSerializer.new(user)} #, include: [:groups,:friends]
         end
         
         # if token

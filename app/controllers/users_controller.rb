@@ -32,10 +32,9 @@ class UsersController < ApplicationController
     def addGroup
         user = User.find(group_params[:user_id])
         user.groups.create(name: group_params[:name])
-        render json: user
+        render json: {user: UserSerializer.new(user)}
     end
 
-    
 
     private
 
